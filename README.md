@@ -16,7 +16,7 @@ Executes the `sh()` command with initializing the specified modules before execu
 Example:
 
 ```groovy
-node('librecores-ci-modules').inside() {
+node('librecores-ci-modules') {
     sh_with_modules(modules: ["gcc", "fusesoc/1.6"], command: "make all")
 }
 ```
