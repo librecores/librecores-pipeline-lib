@@ -21,4 +21,4 @@ node('librecores-ci-modules') {
 }
 ```
 
-Effectively the example above creates commands like `sh "module load gcc && module load fusesoc/1.6 && make all"`
+Effectively the example above creates commands like `source ${modulesPath}/init/bash && sh "module load gcc && module load fusesoc/1.6 && make all"`.
