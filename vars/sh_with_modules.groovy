@@ -16,6 +16,6 @@ def call(Map params = [:]) {
     }
     
     toInvoke = "source ${modulesPath}/init/bash && ${toInvoke}" 
-    sh "$command"
+    sh "$toInvoke"
 }
 
