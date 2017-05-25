@@ -9,6 +9,6 @@ class lcci implements Serializable {
         name
     }
     def sh(message) {
-      echo "${message}"
+      echo "Test"
     }
 }
