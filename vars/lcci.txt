@@ -1,7 +1,0 @@
-<p>
-    Executes shell command with the specified modules. See repository description for usage.
-</p>
-
-<!--
-vim: ft=html
--->
