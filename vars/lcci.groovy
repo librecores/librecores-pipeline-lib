@@ -1,14 +1,5 @@
 #!/usr/bin/env groovy
 
-class lcci implements Serializable {
-    private String name
-    def setName(value) {
-        name = value
-    }
-    def getName() {
-        name
-    }
-    def sh(message) {
-      echo "Test"
-    }
-}
+acme.name = 'Alice'
+echo acme.name /* prints: 'Alice' */
+acme.caution 'The queen is angry!' /* prints: 'Hello, Alice. CAUTION: The queen is angry!' */
