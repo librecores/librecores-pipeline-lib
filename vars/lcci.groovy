@@ -6,6 +6,6 @@ def setName(value) {
 def getName() {
     name
 }
-def caution(message) {
+def sh(message) {
     echo "Hello, ${name}! CAUTION: ${message}"
 }
