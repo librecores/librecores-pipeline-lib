@@ -8,7 +8,7 @@ class lcci implements Serializable {
     def getName() {
         name
     }
-    def sh(message) {
+    def caution(message) {
         echo "Hello, ${name}! CAUTION: ${message}"
     }
 }
