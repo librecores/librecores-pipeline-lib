@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 
 class lcci implements Serializable {
+    def steps
+    lcci(steps) {this.steps = steps}
+    
     private String name
     def setName(value) {
         name = value
@@ -9,6 +12,6 @@ class lcci implements Serializable {
         name
     }
     def caution(message) {
-        echo "Hello, ${name}! CAUTION: ${message}"
+        steps.echo "Hello, ${name}! CAUTION: ${message}"
     }
 }
