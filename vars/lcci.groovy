@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 class lcci implements Serializable {
-    private String name
+    private GString name
     def setName(value) {
         name = value
     }
