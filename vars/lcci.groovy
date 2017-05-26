@@ -9,6 +9,6 @@ class lcci implements Serializable {
         return name
     }
     def caution(String message) {
-        echo "Hello, ${name}! CAUTION: ${message}"
+        echo "Hello, ${this.#name}! CAUTION: ${message}"
     }
 }
