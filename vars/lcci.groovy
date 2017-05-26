@@ -1,14 +1,14 @@
 #!/usr/bin/env groovy
 
 class lcci implements Serializable {
-    private GString name
+    private String name
     def setName(value) {
         name = value
     }
     def getName() {
         return name
     }
-    def caution(message) {
+    def caution(String message) {
         echo "Hello, ${name}! CAUTION: ${message}"
     }
 }
