@@ -6,9 +6,9 @@ class lcci implements Serializable {
         name = value
     }
     def getName() {
-        name
+        return name
     }
     def caution(message) {
-        steps.echo "Hello, ${name}! CAUTION: ${message}"
+        echo "Hello, ${name}! CAUTION: ${message}"
     }
 }
