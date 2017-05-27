@@ -3,7 +3,7 @@ class Modules implements Serializable {
   def steps
   Modules(steps) {this.steps = steps}
   
-  String[] modulesToLoad
+  String[] modulesToLoad = []
   
   def load(String[] modules) {
      for (int i = 0; i < modules.size(); ++i) {
@@ -16,13 +16,13 @@ class Modules implements Serializable {
   }
   
   def sh(command) {
-     String toInvoke = command
+     /*String toInvoke = command
      for (int i = 0; i < modulesToLoad.size(); ++i) {
 //        String module = modulesToLoad[i]
 //        toInvoke = "module load ${module} && ${toInvoke}"
      }
     
      toInvoke = "source /usr/share/modules/init/bash && ${toInvoke}" 
-     sh "$command"
+     sh "$command"*/
   }
 }
