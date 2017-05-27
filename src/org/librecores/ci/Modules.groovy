@@ -9,7 +9,7 @@ class Modules implements Serializable {
     if (modules instanceof String) {
         modules = [modules]
     }
-     for (int i = 0; i < modules.size(); ++i) {
+    modules.each() {
         String module = modules[i]
        // TODO: Try load and check parse output, currently I can't get returnStdout to work..
         steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${module}"
@@ -21,9 +21,9 @@ class Modules implements Serializable {
   
   def sh(command) {
      String toInvoke = command
-     for (int i = 0; i < modulesToLoad.size(); ++i) {
+    modulesToLoad.each() {
         String module = modulesToLoad[i]
-        toInvoke = "module load ${module} && ${toInvoke}"
+        toInvoke = "module load ${it} && ${toInvoke}"
      }
     
      toInvoke = "source /usr/share/modules/init/bash && ${toInvoke}" 
