@@ -16,9 +16,9 @@ class Modules implements Serializable {
         steps.error "Module ${it} not found on this node"
       }
      }
-    steps.echo modulesToLoad.size()
+    steps.echo modulesToLoad.size().toString()
     modulesToLoad += modules
-    steps.echo modulesToLoad.size()
+    steps.echo modulesToLoad.size().toString()
   }
   
   def sh(command) {
