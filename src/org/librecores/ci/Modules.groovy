@@ -6,6 +6,9 @@ class Modules implements Serializable {
   def modulesToLoad = []
   
   def load(modules) {
+    if (modules instanceof String) {
+        modules = [modules]
+    }
      for (int i = 0; i < modules.size(); ++i) {
         String module = modules[i]
        // TODO: Try load and check parse output, currently I can't get returnStdout to work..
