@@ -11,7 +11,7 @@ class Modules implements Serializable {
     }
     modules.each {
       steps.sh "source /usr/share/modules/init/bash && module avail ${it} 2> module-avail"
-      def output=readFile('module-avail').trim()
+      def output = steps.readFile('module-avail').trim()
       steps.echo "${output}"
 
      }
@@ -20,7 +20,7 @@ class Modules implements Serializable {
   
   def sh(command) {
      String toInvoke = command
-    modulesToLoad.each {
+     modulesToLoad.each {
         toInvoke = "module load ${it} && ${toInvoke}"
      }
     
