@@ -9,6 +9,7 @@ class Modules implements Serializable {
     if (modules instanceof String) {
         modules = [modules]
     }
+    steps.echo modules.size().toString()
     modules.each {
       steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it} 2> module-avail"
       def output = steps.readFile('module-avail').trim()
@@ -16,9 +17,7 @@ class Modules implements Serializable {
         steps.error "Module ${it} not found on this node"
       }
      }
-    steps.echo modulesToLoad.size().toString()
     modulesToLoad += modules
-    steps.echo modulesToLoad.size().toString()
   }
   
   def sh(command) {
