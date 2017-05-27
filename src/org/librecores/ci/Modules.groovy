@@ -14,4 +14,15 @@ class Modules implements Serializable {
        modulesToLoad = module
      }
   }
+  
+  def sh(command) {
+     String toInvoke = command
+     for (int i = 0; i < modulesToLoad.size(); ++i) {
+        String module = modulesToLoad[i]
+        toInvoke = "module load ${module} && ${toInvoke}"
+     }
+    
+     toInvoke = "source /usr/share/modules/init/bash && ${toInvoke}" 
+     sh "$command"
+  }
 }
