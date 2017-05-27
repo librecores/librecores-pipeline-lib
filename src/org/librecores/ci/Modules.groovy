@@ -7,6 +7,7 @@ class Modules implements Serializable {
   
   def load(modules) {
     if (modules instanceof String) {
+        steps.echo "Convert string to list"
         modules = [modules]
     }
     modules.each {
