@@ -3,7 +3,7 @@ class Modules implements Serializable {
   def steps
   Modules(steps) {this.steps = steps}
   
-  def modulesToLoad = String[]
+  String[] modulesToLoad
   
   def load(String[] modules) {
      for (int i = 0; i < modules.size(); ++i) {
