@@ -11,8 +11,8 @@ class Modules implements Serializable {
        // TODO: Try load and check parse output, currently I can't get returnStdout to work..
         steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${module}"
        //steps.echo "${status}"
-       modulesToLoad << module
      }
+     modulesToLoad += modules
   }
   
   def sh(command) {
