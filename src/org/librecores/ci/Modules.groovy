@@ -26,6 +26,6 @@ class Modules implements Serializable {
      }
     
      toInvoke = "source /usr/share/modules/init/bash && ${toInvoke}" 
-     sh "$command"
+     steps.sh "$command"
   }
 }
