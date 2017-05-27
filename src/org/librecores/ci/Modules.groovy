@@ -3,9 +3,9 @@ class Modules implements Serializable {
   def steps
   Modules(steps) {this.steps = steps}
   
-  String[] modulesToLoad = []
+  def modulesToLoad = []
   
-  def load(String[] modules) {
+  def load(modules) {
      for (int i = 0; i < modules.size(); ++i) {
         String module = modules[i]
        // TODO: Try load and check parse output, currently I can't get returnStdout to work..
