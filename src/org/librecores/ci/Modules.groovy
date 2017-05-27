@@ -3,7 +3,7 @@ class Modules implements Serializable {
   def steps
   Modules(steps) {this.steps = steps}
   
-  String[] modulesToLoad = ["test"]
+  def modulesToLoad = []
   
   def load(String[] modules) {
      for (int i = 0; i < modules.size(); ++i) {
@@ -11,8 +11,8 @@ class Modules implements Serializable {
        // TODO: Try load and check parse output, currently I can't get returnStdout to work..
         steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${module}"
        //steps.echo "${status}"
+       modulesToLoad << module
      }
-     modulesToLoad = modulesToLoad + modules
   }
   
   def sh(command) {
