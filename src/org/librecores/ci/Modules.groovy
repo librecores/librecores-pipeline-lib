@@ -10,9 +10,8 @@ class Modules implements Serializable {
         modules = [modules]
     }
     modules.each {
-        String module = modules[i]
        // TODO: Try load and check parse output, currently I can't get returnStdout to work..
-        steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${module}"
+        steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${it}"
        //steps.echo "${status}"
        //modulesToLoad << module
      }
