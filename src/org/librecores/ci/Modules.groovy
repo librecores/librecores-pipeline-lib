@@ -10,8 +10,9 @@ class Modules implements Serializable {
         modules = [modules]
     }
     modules.each {
-       // TODO: Try load and check parse output, currently I can't get returnStdout to work..
-        steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${it}"
+       steps.sh "source /usr/share/modules/init/bash && module avail ${it} >> output"
+       def VERSION = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+      steps.echo "${VERSION}"
        //steps.echo "${status}"
        //modulesToLoad << module
      }
