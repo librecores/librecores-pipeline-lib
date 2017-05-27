@@ -10,10 +10,11 @@ class Modules implements Serializable {
         modules = [modules]
     }
     modules.each {
-      /*steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it} 2> module-avail"
-      def output = steps.readFile('module-avail').trim()*/
-      def output = steps.sh(returnStdout: true, script: "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it}")
-      steps.echo "${output}"
+      steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it} 2> module-avail"
+      def output = steps.readFile('module-avail').trim()
+      if (output.length() == 0) {
+        error "Module ${it} not found on this node"
+      }
      }
     modulesToLoad += modules
   }
