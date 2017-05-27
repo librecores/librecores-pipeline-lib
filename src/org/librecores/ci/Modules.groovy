@@ -9,7 +9,7 @@ class Modules implements Serializable {
     if (modules instanceof String) {
         modules = [modules]
     }
-    steps.echo modules.size().toString()
+
     for (int i = 0; i < modules.size(); ++i) {
       def module = modules[i]
       steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${module} 2> module-avail"
@@ -23,11 +23,11 @@ class Modules implements Serializable {
   
   def sh(command) {
      String toInvoke = command
-     modulesToLoad.each {
-        toInvoke = "module load ${it} && ${toInvoke}"
+     for (int i = 0; i < modulesToLoad.size(); ++i) {
+       def module = modulesToLoad[i]
+       toInvoke = "module load ${module} && ${toInvoke}"
      }
     
-    steps.echo toInvoke
      toInvoke = "source /usr/share/modules/init/bash && ${toInvoke}" 
      steps.sh "$toInvoke"
   }
