@@ -16,6 +16,7 @@ class Modules implements Serializable {
        //steps.echo "${status}"
        //modulesToLoad << module
      }
+    modulesToLoad += modules
   }
   
   def sh(command) {
