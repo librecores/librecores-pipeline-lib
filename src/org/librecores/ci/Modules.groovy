@@ -10,11 +10,12 @@ class Modules implements Serializable {
         modules = [modules]
     }
     steps.echo modules.size().toString()
-    modules.each {
-      steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it} 2> module-avail"
+    for (int i = 0; i < modules.size(); ++i) {
+      def module = modules[i]
+      steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${module} 2> module-avail"
       def output = steps.readFile('module-avail').trim()
       if (output.length() == 0) {
-        steps.error "Module ${it} not found on this node"
+        steps.error "Module ${module} not found on this node"
       }
      }
     modulesToLoad += modules
@@ -26,6 +27,7 @@ class Modules implements Serializable {
         toInvoke = "module load ${it} && ${toInvoke}"
      }
     
+    steps.echo toInvoke
      toInvoke = "source /usr/share/modules/init/bash && ${toInvoke}" 
      steps.sh "$toInvoke"
   }
