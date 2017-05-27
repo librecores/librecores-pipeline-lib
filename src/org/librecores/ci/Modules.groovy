@@ -13,7 +13,7 @@ class Modules implements Serializable {
       steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it} 2> module-avail"
       def output = steps.readFile('module-avail').trim()
       if (output.length() == 0) {
-        error "Module ${it} not found on this node"
+        sh.error "Module ${it} not found on this node"
       }
      }
     modulesToLoad += modules
