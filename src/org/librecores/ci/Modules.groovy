@@ -10,9 +10,8 @@ class Modules implements Serializable {
         modules = [modules]
     }
     modules.each {
-       steps.sh "source /usr/share/modules/init/bash && module avail ${it} 2> output"
-       def VERSION = steps.sh(returnStdout: true, script: 'pwd').trim()
-      steps.echo "${VERSION}"
+       def avail = steps.sh (returnStdout: true, script: "source /usr/share/modules/init/bash && module avail ${it}").trim()
+      steps.echo "${avail}"
        //steps.echo "${status}"
        //modulesToLoad << module
      }
