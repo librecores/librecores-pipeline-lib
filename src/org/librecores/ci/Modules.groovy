@@ -10,7 +10,7 @@ class Modules implements Serializable {
         modules = [modules]
     }
     modules.each {
-      steps.sh "source /usr/share/modules/init/bash && module avail ${it} 2> module-avail"
+      steps.sh "source /usr/share/modules/init/bash && /usr/bin/modulecmd bash avail ${it} 2> module-avail"
       def output = steps.readFile('module-avail').trim()
       steps.echo "${output}"
 
