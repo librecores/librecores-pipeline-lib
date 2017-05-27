@@ -21,7 +21,6 @@ class Modules implements Serializable {
   def sh(command) {
      String toInvoke = command
     modulesToLoad.each {
-        String module = modulesToLoad[i]
         toInvoke = "module load ${it} && ${toInvoke}"
      }
     
