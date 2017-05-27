@@ -8,8 +8,11 @@ class Modules implements Serializable {
   def load(String[] modules) {
      for (int i = 0; i < modules.size(); ++i) {
         String module = modules[i]
-        def status = steps.sh script: "source /usr/share/modules/init/bash && module load ${module}", returnStdout: true
-       steps.echo "${status}"
+        def status = steps.sh(
+          script: "source /usr/share/modules/init/bash && module load ${module}",
+          returnStdout: true
+        ).trim()
+       //steps.echo "${status}"
      }
   }
 }
