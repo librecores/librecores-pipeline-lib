@@ -10,7 +10,7 @@ class Modules implements Serializable {
         String module = modules[i]
         def status = steps.sh(
           //script: "source /usr/share/modules/init/bash && module load ${module}",
-          script: "ls",
+          script: "ls && ls",
           returnStatus: true
         )
        steps.echo "${status}"
