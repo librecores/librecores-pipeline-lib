@@ -12,7 +12,7 @@ class Modules implements Serializable {
         steps.sh returnStdout: false, script: "source /usr/share/modules/init/bash && module load ${module}"
        //steps.echo "${status}"
      }
-     modulesToLoad += modules
+     modulesToLoad << modules
   }
   
   def sh(command) {
