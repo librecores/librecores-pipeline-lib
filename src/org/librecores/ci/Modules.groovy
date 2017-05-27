@@ -7,7 +7,6 @@ class Modules implements Serializable {
   
   def load(modules) {
     if (modules instanceof String) {
-        steps.echo "Convert string to list"
         modules = [modules]
     }
     modules.each {
@@ -17,7 +16,9 @@ class Modules implements Serializable {
         steps.error "Module ${it} not found on this node"
       }
      }
+    steps.echo modulesToLoad.size()
     modulesToLoad += modules
+    steps.echo modulesToLoad.size()
   }
   
   def sh(command) {
