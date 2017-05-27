@@ -9,9 +9,8 @@ class Modules implements Serializable {
      for (int i = 0; i < modules.size(); ++i) {
         String module = modules[i]
         def status = steps.sh(
-          //script: "source /usr/share/modules/init/bash && module load ${module}",
-          script: "ls && ls",
-          returnStatus: true
+          script: "source /usr/share/modules/init/bash && module load ${module}",
+          returnStdout: true
         )
        steps.echo "${status}"
      }
