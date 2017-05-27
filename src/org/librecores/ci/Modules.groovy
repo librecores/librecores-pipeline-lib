@@ -11,7 +11,7 @@ class Modules implements Serializable {
     }
     modules.each {
        steps.sh "source /usr/share/modules/init/bash && module avail ${it} 2> output"
-       def VERSION = steps.sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+       def VERSION = steps.sh(returnStdout: true, script: 'pwd').trim()
       steps.echo "${VERSION}"
        //steps.echo "${status}"
        //modulesToLoad << module
