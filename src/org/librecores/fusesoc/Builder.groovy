@@ -1,25 +1,23 @@
 package org.librecores.fusesoc;
 
-//@Library('fusesoc')
-//import org.librecores.fusesoc.GitHubTools;
-
 public class Builder {
   
   def script
-  public Builder(script) {this.script = script}
   
   public static final String DEFAULT_IMAGE="onenashev/fusesoc-icarus";
   
   public static final String DEFAULT_CORES_REPO="https://github.com/openrisc/orpsoc-cores.git";
   
+  public Builder(script) {this.script = script}
+  
   /**
   * Default builder.
   * It picks core definitions from DEFAULT_CORES_REPO and pathes it before the build
   */
-  public void build(String coreName, String githubUsername, String version) {
-    script.docker.image(DEFAULT_IMAGE).inside {
-      script.stage "Patch orpsoc-cores registry"
-      script.sh "cd /fusesoc && rm -rf orpsoc-cores"
+  public void build(String coreName, String githubUsername, String version,
+        String fusesocRoot) {
+    script.stage ("Patch the orpsoc-cores registry") {
+      script.sh "cd ${fusesocRoot} && rm -rf orpsoc-cores"
       script.dir('orpsoc-cores') {
           script.git DEFAULT_CORES_REPO;
       }
