@@ -1,5 +1,7 @@
 package org.librecores.ci
 
+import java.util.ArrayList
+
 /**
  * Environment Modules based projects
  *
@@ -21,14 +23,16 @@ class Modules implements Serializable {
   def modulesToLoad = [] //!< List of modules to load into environment
 
   /**
-   * Load a module or list of modules
+   * Load a module
    */
-  def load(modules) {
-    // Convert string to list if single module
-    if (modules instanceof String) {
-      modules = [modules]
-    }
-
+  def load(String module) {
+    load([module])
+  }
+  
+  /**
+   * Load a list of modules
+   */
+  def load(ArrayList<String> modules) {
     for (int i = 0; i < modules.size(); ++i) {
       // Check if a module is available
       def module = modules[i]
