@@ -1,11 +1,41 @@
-package org.librecores.fusesoc;
+package org.librecores.fusesoc
+
+import org.librecores.ci.LCCI
 
 class FuseSoCBuilder implements Serializable {
 
-  public static final String DEFAULT_IMAGE="onenashev/fusesoc-icarus";
+  public static final String DEFAULT_IMAGE="onenashev/fusesoc-icarus"
   
-  public static final String DEFAULT_CORES_REPO="https://github.com/openrisc/orpsoc-cores.git";
-  
+  public static final String DEFAULT_CORES_REPO="https://github.com/openrisc/orpsoc-cores.git"
+
+    /**
+     * Default builder for {@code fusesoc sim} multi-branch projects.
+     * It checks out the repo, determines commit ID and then invokes {@code sim()} to perform thecore build.
+     *
+     * @param coreName name of the FuseSoC core
+     * @param githubOrganization Name of organization or User to be used as override of the orpsoc-cores repo
+     * @param extraSimArgs Extra parameters to be passed to FuseSoC Sim
+     */
+    static void defaultCoreCIBuild(def script, String coreName, String githubOrganization, String extraSimArgs="") {
+        def commitId = null
+
+        script.stage('Determine required patches') {
+            script.node("librecores-ci") {
+                // Now we take only one repo, but maybe we need more ones later
+                new LCCI(script).checkoutScmOrFallback("https://github.com/${githubOrganization}/${coreName}.git")
+                script.sh 'git rev-parse HEAD > GIT_COMMIT'
+                commitId = script.readFile('GIT_COMMIT')
+            }
+        }
+
+        script.stage('Build component') {
+            script.node('docker-fusesoc-icarus') {
+                FuseSoCBuilder.sim(script, coreName, githubOrganization, commitId,
+                    "/fusesoc", extraSimArgs)
+            }
+        }
+    }
+
     /**
      * Default builder for {@code fusesoc sim}.
      * It picks core definitions from {@link #DEFAULT_CORES_REPO} and patches it before the build.
@@ -45,7 +75,7 @@ class FuseSoCBuilder implements Serializable {
      */
     static void patchCoreSource(def script, String _coreName, String _userName, String _version) {
             String filePath = "/fusesoc/orpsoc-cores/cores/${_coreName}/${_coreName}.core"
-        FuseSoCBuilder.patchCoreProvider(script, filePath, _coreName, _userName, _version);
+        FuseSoCBuilder.patchCoreProvider(script, filePath, _coreName, _userName, _version)
     }
 
     /**
@@ -58,7 +88,7 @@ class FuseSoCBuilder implements Serializable {
           "version = ${_version}"
         script.sh "ls ${filePath}"
         String oldCoreDef = script.readFile(filePath)
-        String newCoreDef = oldCoreDef.substring(0,oldCoreDef.indexOf('[provider]')) + modified;
+        String newCoreDef = oldCoreDef.substring(0,oldCoreDef.indexOf('[provider]')) + modified
         script.writeFile file: filePath, text: newCoreDef
     }
 }
