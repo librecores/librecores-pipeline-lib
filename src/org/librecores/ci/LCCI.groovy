@@ -14,7 +14,7 @@ class LCCI {
     }
 
     @NonCPS
-    void checkoutScmOrFallback(String fallback = null) {
+    void checkoutScmOrFallback(def fallback = null) {
         if (isRunningOnProduction()) {
             steps.checkout steps.scm
         } else if (fallback == null) {
