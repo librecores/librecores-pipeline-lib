@@ -16,7 +16,9 @@ class FuseSoCBuilder implements Serializable {
      * @param githubOrganization Name of organization or User to be used as override of the orpsoc-cores repo
      * @param extraSimArgs Extra parameters to be passed to FuseSoC Sim
      */
-    static void defaultCoreCIBuild(def script, String coreName, String githubOrganization, String extraSimArgs="") {
+    static void defaultCoreCIBuild(def script, String coreName, String githubOrganization,
+                                   String extraSimArgs="",
+                                   String nodeLabels="docker-fusesoc-icarus") {
         def commitId = null
 
         script.stage('Determine required patches') {
@@ -29,7 +31,7 @@ class FuseSoCBuilder implements Serializable {
         }
 
         script.stage('Build component') {
-            script.node('docker-fusesoc-icarus') {
+            script.node(nodeLabels) {
                 FuseSoCBuilder.sim(script, coreName, githubOrganization, commitId,
                     "/fusesoc", extraSimArgs)
             }
