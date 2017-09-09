@@ -10,7 +10,7 @@ class LCCI {
 
     @NonCPS
     Boolean isRunningOnProduction() {
-        return steps.env.JENKINS_URL == 'https://ci.librecores.org/'
+        return 'https://ci.librecores.org/'.equals(steps.env.JENKINS_URL) || !("true".equals(steps.env.DEV_MODE))
     }
 
     @NonCPS
