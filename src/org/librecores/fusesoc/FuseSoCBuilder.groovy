@@ -90,7 +90,7 @@ class FuseSoCBuilder implements Serializable {
           "version = ${_version}"
         String oldCoreDef = script.readFile(filePath)
         String newCoreDef = oldCoreDef.substring(0,oldCoreDef.indexOf('[provider]')) + modified
-        script.archiveArtifacts artifacts: filePath, excludes: null
         script.writeFile file: filePath, text: newCoreDef
+        script.archiveArtifacts artifacts: filePath, excludes: null
     }
 }
