@@ -1,0 +1,7 @@
+<p>
+    Creates a pipeline for OpenRISC CI jobs
+</p>
+
+<!--
+vim: ft=html
+-->
