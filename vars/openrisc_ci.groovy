@@ -1,36 +1,6 @@
 #!/usr/bin/env groovy
 
-class JobSpec {
-    def jobConfig = [:]
-
-    JobSpec(name) {
-        jobConfig["name"] = name
-    }
-
-    def name(value) {
-        jobConfig["name"] = value
-    }
-
-    def job(value) {
-        jobConfig["job"] = value
-    }
-
-    def sim(value) {
-        jobConfig["sim"] = value
-    }
-
-    def pipeline(value) {
-        jobConfig["pipeline"] = value
-    }
-
-    def expectedFailures(value) {
-        jobConfig["expectedFailures"] = value
-    }
-
-    def extraCoreArgs(value) {
-        jobConfig["extraCoreArgs"] = value
-    }
-}
+import org.openrisc.ci.PipelineSpec
 
 /**
  * Builds a parallel job
@@ -61,29 +31,12 @@ def buildStage(jobConfig) {
     }
 }
 
-class PipelineSpec {
-    def jobConfigs = []
-    def image = 'librecores/librecores-ci-openrisc'
-
-    def image(value) {
-        this.image = value
-    }
-
-
-    def job(name, @DelegatesTo(JobSpec) Closure closure) {
-        JobSpec jobSpec = new JobSpec(name)
-        closure.delegate = jobSpec
-        closure()
-        jobConfigs << jobSpec.jobConfig
-    }
-}
-
 /**
  * Pipeline for OpenRISC projects
  * @param jobs
  * @return
  */
-def call(@DelegatesTo(PipelineSpec) Closure closure) {
+def call(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = PipelineSpec) Closure closure) {
 
     PipelineSpec pipelineSpec = new PipelineSpec()
     closure.delegate = pipelineSpec
