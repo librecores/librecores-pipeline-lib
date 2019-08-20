@@ -43,3 +43,32 @@ node('librecores-ci-modules') {
 ```
 
 Effectively the example above creates commands like `source ${modulesPath}/init/bash && sh "module load gcc && module load fusesoc/1.6 && make all"`.
+
+### openriscPipeline
+
+Builds a pipeline for OpenRISC projects.
+
+Out of the box it configures:
+- Pulls Docker images for `librecores-ci-openrisc`
+- Executes jobs in parallel inside Docker images
+
+#### Example
+
+This snippet is from the Jenkins pipeline for [mor1kx](https://github.com/openrisc/mor1kx)
+
+```groovy
+@Library('librecoresci') _
+
+openriscPipeline {
+        job('verilator') {
+            job 'verilator'
+        }
+
+        job('testing-1') {
+            job 'or1k-tests'
+            sim 'icarus'
+            pipeline 'CAPPUCCINO'
+            expectedFailures 'or1k-cy'
+        }
+}
+```
