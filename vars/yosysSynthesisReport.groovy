@@ -1,19 +1,27 @@
 #!/usr/bin/env groovy
 
-def call(String core, String targetName, String yosysLogPath) {
+import org.librecores.fusesoc.YosysJobSpec
+
+def call(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = YosysJobSpec) Closure cl) {
+
+    YosysJobSpec jobSpec = new YosysJobSpec()
+    cl.delegate = jobSpec
+    cl()
+
     fusesoc {
         image 'librecores/librecores-ci:0.5.0'
-        library core, '/src'
+        library jobSpec.core, '/src'
 
-        run(core) {
-            target targetName
+        run(jobSpec.core) {
+            target jobSpec.target
         }
 
-        shell "/test-scripts/extract-yosys-stats.py < \"${yosysLogPath}\""
+        shell "/test-scripts/extract-yosys-stats.py < \"${jobSpec.logPath}\""
 
-        plotGraph 'yosys-stats.csv', 'Resource Usage'
-        plotGraph 'yosys-cell-stats.csv', 'Cell Count'
     }
+
+    plotGraph 'yosys-stats.csv', 'Resource Usage'
+    plotGraph 'yosys-cell-stats.csv', 'Cell Count'
 }
 
 def plotGraph(csvSource, title) {
