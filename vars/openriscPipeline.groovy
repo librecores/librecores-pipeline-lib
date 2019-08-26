@@ -63,6 +63,17 @@ def call(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = PipelineSpec) Cl
                     }
                 }
             }
+
+            stage("Yosys Synthesis resource usage statistics parsing and publishing ") {
+                when {
+                    expression {
+                        pipelineSpec.yosysJobSpec != null
+                    }
+                }
+                steps {
+                    yosysSynthesisReport pipelineSpec.yosysJobSpec
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ package org.openrisc.ci
 class PipelineSpec {
     def jobConfigs = []
     def image = 'librecores/librecores-ci-openrisc'
+    def yosysJobSpec
 
     def image(value) {
         this.image = value
@@ -17,5 +18,9 @@ class PipelineSpec {
         closure.delegate = jobSpec
         closure()
         jobConfigs << jobSpec.jobConfig
+    }
+
+    def yosysReport(Closure cl) {
+        yosysJobSpec = cl
     }
 }

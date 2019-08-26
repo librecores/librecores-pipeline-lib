@@ -72,3 +72,63 @@ openriscPipeline {
         }
 }
 ```
+### fusesoc
+
+Builds a step for a generic FuseSoC invocation.
+
+- Chooses a base docker image with FuseSoC
+- Adds library to FuseSoC
+- Runs FuseSoC step
+- Runs arbitrary shell commands in this step
+
+#### Example
+
+```groovy
+@Library('librecoresci') _
+
+pipeline {
+    stages {
+        stage('example-fusesoc-step') {
+            fusesoc {
+                image 'librecores/librecores-ci:0.5.0'
+                library 'some_core', '/src'
+        
+                run('some_core') {
+                    target 'fusesoc_target'
+                }
+        
+                shell "echo 'Additional steps on shell'"
+            }
+        }
+    }
+}
+```
+### yosysSynthesisReport
+
+Build a step for [Yosys Synthesis](http://www.clifford.at/yosys/) for monitoring resource usage statistics and publish on Jenkins.
+
+- Generalised Yosys Synthesis 
+- Can be configured for various hardware projects 
+- Simple declarative call which requires parameters `core`, `target`, `logpath`
+- Can be modified and extend to include more paramaters in future.
+
+#### Example 
+
+```groovy
+@Library('librecoresci') _
+
+pipeline {
+    agent any 
+    stages{
+        stage('yosys') {
+            steps {
+                yosysSynthesisReport {
+					core 'mor1kx'
+					target 'synth'
+					logPath 'build/mor1kx_5.0-r3/synth-icestorm/yosys.log'
+				}
+            }
+        }
+    }
+}
+```

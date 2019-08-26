@@ -1,0 +1,7 @@
+<p>
+    Executes Yosys synthesis and generates resource usage reports
+</p>
+
+<!--
+vim: ft=html
+-->
