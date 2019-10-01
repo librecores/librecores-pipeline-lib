@@ -1,21 +1,23 @@
-# LibreCores Jenkins Pipeline Library
+= LibreCores Jenkins Pipeline Library
+:toc:
 
 This library contains common operations and logic for LibreCores CI.
 
-## Status
+== Status
 
 The library is under development.
 All commands may change, the compatibility is not guaranteed.
 
-## Classes
+== Classes
 
-### Modules
+=== Modules
 
 This is the class to more conveniently build CI based on Environment Modules (http://modules.sourceforge.net/). First modules are loaded to the environment and calling sh() then executes the command(s) in that environment.
 
 Usage:
 
-```groovy
+[source,groovy]
+----
 @Library('librecoresci') import org.librecores.ci.Modules
 def lcci = new Modules(steps)
 
@@ -26,25 +28,28 @@ node('librecores-ci-modules') {
     lcci.sh 'verilator -f verilate.vc'
   }
 }
-```
 
-## Commands
+----
 
-### sh_with_modules()
+== Commands
+
+=== sh_with_modules()
 
 Executes the `sh()` command with initializing the specified modules before executing.
 
 Example:
 
-```groovy
+[source,groovy]
+----
 node('librecores-ci-modules') {
     sh_with_modules(modules: ["gcc", "fusesoc/1.6"], command: "make all")
 }
-```
 
-Effectively the example above creates commands like `source ${modulesPath}/init/bash && sh "module load gcc && module load fusesoc/1.6 && make all"`.
+----
 
-### openriscPipeline
+Effectively the example above creates commands like `source ${modulesPath}/init/bash &amp;&amp; sh &quot;module load gcc &amp;&amp; module load fusesoc/1.6 &amp;&amp; make all&quot;`.
+
+=== openriscPipeline
 
 Builds a pipeline for OpenRISC projects.
 
@@ -52,11 +57,12 @@ Out of the box it configures:
 - Pulls Docker images for `librecores-ci-openrisc`
 - Executes jobs in parallel inside Docker images
 
-#### Example
+==== Example
 
-This snippet is from the Jenkins pipeline for [mor1kx](https://github.com/openrisc/mor1kx)
+This snippet is from the Jenkins pipeline for https://github.com/openrisc/mor1kx[mor1kx]
 
-```groovy
+[source,groovy]
+----
 @Library('librecoresci') _
 
 openriscPipeline {
@@ -71,19 +77,21 @@ openriscPipeline {
             expectedFailures 'or1k-cy'
         }
 }
-```
-### fusesoc
+----
+
+=== fusesoc
 
 Builds a step for a generic FuseSoC invocation.
 
-- Chooses a base docker image with FuseSoC
-- Adds library to FuseSoC
-- Runs FuseSoC step
-- Runs arbitrary shell commands in this step
+* Chooses a base docker image with FuseSoC
+* Adds library to FuseSoC
+* Runs FuseSoC step
+* Runs arbitrary shell commands in this step
 
-#### Example
+==== Example
 
-```groovy
+[source,groovy]
+----
 @Library('librecoresci') _
 
 pipeline {
@@ -102,19 +110,21 @@ pipeline {
         }
     }
 }
-```
-### yosysSynthesisReport
+----
 
-Build a step for [Yosys Synthesis](http://www.clifford.at/yosys/) for monitoring resource usage statistics and publish on Jenkins.
+=== yosysSynthesisReport
 
-- Generalised Yosys Synthesis 
-- Can be configured for various hardware projects 
-- Simple declarative call which requires parameters `core`, `target`, `logpath`
-- Can be modified and extend to include more paramaters in future.
+Build a step for http://www.clifford.at/yosys/[Yosys Synthesis] for monitoring resource usage statistics and publish on Jenkins.
 
-#### Example 
+* Generalised Yosys Synthesis
+* Can be configured for various hardware projects
+* Simple declarative call which requires parameters `core`, `target`, `logpath`
+* Can be modified and extend to include more paramaters in future.
 
-```groovy
+==== Example
+
+[source,groovy]
+----
 @Library('librecoresci') _
 
 pipeline {
@@ -131,4 +141,4 @@ pipeline {
         }
     }
 }
-```
+----
