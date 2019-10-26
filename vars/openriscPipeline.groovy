@@ -20,8 +20,8 @@ def buildStage(jobConfig) {
 
     def envVars = "-e \"JOB=${job}\" " +
             "-e \"SIM=${sim}\" " +
-            "-e \"PIPELINE=${pipeline}\"" +
-            " -e \"EXPECTED_FAILURES=${expectedFailures}\" " +
+            "-e \"PIPELINE=${pipeline}\" " +
+            "-e \"EXPECTED_FAILURES=${expectedFailures}\" " +
             "-e \"EXTRA_CORE_ARGS=${extraCoreArgs}\""
 
     return {

@@ -139,8 +139,8 @@ Build a step for [Yosys Synthesis](http://www.clifford.at/yosys/) for monitoring
 #### Parameters
 
  - core - the fusesoc core to run
- - target - the fusesoc target to run yosys synthesis
- - logPath - the location of the `yosys.log` file
+ - target - the fusesoc target to run yosys synthesis, the default is "synth"
+ - logPath - the location of the `yosys.log` file, the default is "build/${core}_*/${target}-*/yosys.log"
 
 #### Example 
 
