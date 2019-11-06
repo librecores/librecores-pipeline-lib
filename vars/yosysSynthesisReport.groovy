@@ -8,6 +8,8 @@ def call(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = YosysJobSpec) Cl
     cl.delegate = jobSpec
     cl()
 
+    jobSpec.build()
+
     fusesoc {
         image 'librecores/librecores-ci:0.5.0'
         library jobSpec.core, '/src'
